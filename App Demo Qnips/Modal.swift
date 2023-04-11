@@ -8,8 +8,14 @@
 import Foundation
 
 struct SideView: Codable {
-    let weekday: String
-    let weekDate: String
-    let day: Day
-    let network: Network
+    
+    let weekDay: Int
+    let categories: [Category]
+    let products: [String: Product]
+    let allergens: [String: AllergensLabel]
+}
+
+struct Category: Codable, Hashable {
+    let name: String
+    let ProductIds: [Int]
 }

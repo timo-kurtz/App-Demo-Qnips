@@ -20,7 +20,7 @@ struct Product: Codable, Hashable {
     let Price: [String: Float]
 }
 
-struct AllergensLabel: Codable {
+struct AllergensLabel: Codable, Hashable {
     let Id: String
     let Label: String
     
