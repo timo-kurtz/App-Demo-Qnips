@@ -8,7 +8,6 @@
 import Foundation
 
 struct SideView: Codable {
-    
     let weekDay: Int
     let categories: [Category]
     let products: [String: Product]
