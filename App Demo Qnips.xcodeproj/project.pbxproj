@@ -7,15 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		683EC29129E56E8C0013E6AB /* WeekDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683EC29029E56E8C0013E6AB /* WeekDayView.swift */; };
+		683EC29329E5A9830013E6AB /* Modal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683EC29229E5A9830013E6AB /* Modal.swift */; };
 		684E6FC429E557AC001DE9A9 /* App_Demo_QnipsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684E6FC329E557AC001DE9A9 /* App_Demo_QnipsApp.swift */; };
 		684E6FC629E557AC001DE9A9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684E6FC529E557AC001DE9A9 /* ContentView.swift */; };
 		684E6FC829E557AD001DE9A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 684E6FC729E557AD001DE9A9 /* Assets.xcassets */; };
 		684E6FCB29E557AD001DE9A9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 684E6FCA29E557AD001DE9A9 /* Preview Assets.xcassets */; };
 		684E6FCD29E557AD001DE9A9 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684E6FCC29E557AD001DE9A9 /* Persistence.swift */; };
 		684E6FD029E557AD001DE9A9 /* App_Demo_Qnips.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 684E6FCE29E557AD001DE9A9 /* App_Demo_Qnips.xcdatamodeld */; };
+		684E6FD829E55F41001DE9A9 /* network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684E6FD729E55F41001DE9A9 /* network.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		683EC29029E56E8C0013E6AB /* WeekDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDayView.swift; sourceTree = "<group>"; };
+		683EC29229E5A9830013E6AB /* Modal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modal.swift; sourceTree = "<group>"; };
 		684E6FC029E557AC001DE9A9 /* App Demo Qnips.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "App Demo Qnips.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		684E6FC329E557AC001DE9A9 /* App_Demo_QnipsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App_Demo_QnipsApp.swift; sourceTree = "<group>"; };
 		684E6FC529E557AC001DE9A9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -24,6 +29,7 @@
 		684E6FCC29E557AD001DE9A9 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		684E6FCF29E557AD001DE9A9 /* App_Demo_Qnips.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = App_Demo_Qnips.xcdatamodel; sourceTree = "<group>"; };
 		684E6FD129E557AD001DE9A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		684E6FD729E55F41001DE9A9 /* network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = network.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +63,10 @@
 			isa = PBXGroup;
 			children = (
 				684E6FC329E557AC001DE9A9 /* App_Demo_QnipsApp.swift */,
+				684E6FD729E55F41001DE9A9 /* network.swift */,
+				683EC29229E5A9830013E6AB /* Modal.swift */,
 				684E6FC529E557AC001DE9A9 /* ContentView.swift */,
+				683EC29029E56E8C0013E6AB /* WeekDayView.swift */,
 				684E6FC729E557AD001DE9A9 /* Assets.xcassets */,
 				684E6FCC29E557AD001DE9A9 /* Persistence.swift */,
 				684E6FD129E557AD001DE9A9 /* Info.plist */,
@@ -146,7 +155,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				684E6FCD29E557AD001DE9A9 /* Persistence.swift in Sources */,
+				683EC29129E56E8C0013E6AB /* WeekDayView.swift in Sources */,
 				684E6FC629E557AC001DE9A9 /* ContentView.swift in Sources */,
+				684E6FD829E55F41001DE9A9 /* network.swift in Sources */,
+				683EC29329E5A9830013E6AB /* Modal.swift in Sources */,
 				684E6FD029E557AD001DE9A9 /* App_Demo_Qnips.xcdatamodeld in Sources */,
 				684E6FC429E557AC001DE9A9 /* App_Demo_QnipsApp.swift in Sources */,
 			);

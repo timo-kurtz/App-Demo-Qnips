@@ -9,66 +9,96 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
-
+    
+    @State private var network: Network?
+    @State private var ProductIds: [ProductId]?
+    @State private var weekDays = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
+    @State private var missingWeekDays = [Int()]
+    @State private var categoryTitles = [String]()
     var body: some View {
         NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
+            VStack {
+                TabView {
+                    ForEach(Array(weekDays.enumerated()), id: \.1) { index, item in
+                        WeekDayView(name: weekDays[index], date: "22.02.2016", product: network?.Products[String(ProductIds?[index].ProductId ?? 0)] ?? Product(AllergenIds: [], ProductId: 0, Name: "", Price: ["" : 0]), network: network, title: categoryTitles)
+//                        WeekDayView(name: weekDays[index], date: "22.02.2016", product: Product(AllergenIds: ["1, 11, 9"], ProductId: 2, Name: "Asia", Price: ["Betrag" : 6.9]), network: network)
                     }
+                        
+                        
+                        
+                    
                 }
-                .onDelete(perform: deleteItems)
+                .tabViewStyle(PageTabViewStyle())
+                .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-            Text("Select an item")
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            .navigationBarTitle("KW 8")
+            .onAppear {
+                fetch()
+                // Perform setup tasks here
             }
         }
     }
+    
+    
+    private func fetch() {
+        if let url = URL(string: "https://myprelive.qnips.com/dbapi/ha") {
+          let session = URLSession.shared
+          let task = session.dataTask(with: url) { data, response, error in
+            if let error = error {
+              print("Error: \(error)")
+              return
+            }
 
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
+            if let response = response as? HTTPURLResponse {
+              if response.statusCode != 200 {
+                print("Invalid response: \(response.statusCode)")
+                return
+              }
+            }
 
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            if let data = data {
+              // Parse the response data here
+                if let jsonString = String(data: data, encoding: .utf8) {
+//                  print(jsonString)
+                    let jsonData = jsonString.data(using: .utf8)!
+                        let decoder = JSONDecoder()
+                    network = try! decoder.decode(Network.self, from: jsonData)
+                    getWeeks()
+                } else {
+                  print("Failed to convert data to string")
+                }
+            }
+          }
+
+          task.resume()
+        }
+    }
+    
+    private func getWeeks() {
+        guard let rows = network?.Rows else {return }
+        var numbWeeks = [Int]()
+        for row in rows {
+            categoryTitles.append(row.Name)
+            for day in row.Days {
+                for ProductId in day.ProductIds {
+                    if ProductIds == nil {
+                        ProductIds = [ProductId]
+                    }
+                    ProductIds?.append(ProductId)
+                }
+                numbWeeks.append(day.Weekday)
+            }
+        }
+
+        missingWeekDays = (0...6).filter { !numbWeeks.contains($0) }
+
+        if missingWeekDays.isEmpty {
+            print("All numbers are present")
+        } else {
+            for missingNumber in missingWeekDays {
+                print(missingNumber)
+                weekDays[missingNumber] = "Heute geschlossen"
+//                weekDays.remove(at: missingNumber)
             }
         }
     }
