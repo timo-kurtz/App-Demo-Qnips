@@ -19,8 +19,6 @@ struct WeekDayView: View {
             Text(weekDays[data.weekDay])
                 .bold()
                 .font(.largeTitle)
-            Text("")
-                .font(.callout)
             Spacer()
             List(Array(data.categories.enumerated()), id: \.1) { index, category in
                 Text(category.name)
@@ -29,13 +27,20 @@ struct WeekDayView: View {
                 ForEach(Array(category.ProductIds.enumerated()), id: \.1) { index, id in
                         Text(data.products[String(id)]?.Name ?? "")
                             .bold()
-                        Text("\(String(format: "%.2f", (data.products[String(id)]?.Price["Betrag"] ?? 0))) $")
+                        Text("\(String(format: "%.2f", (data.products[String(id)]?.Price["Betrag"] ?? 0))) €")
+                        .font(.caption)
                         .padding(.leading)
                         Text(allergens(ids: data.products[String(id)]?.AllergenIds))
+                        .font(.caption)
                         .padding(.leading)
-                    
+                        .padding(.bottom)
                 }
-                Spacer()
+                if category.ProductIds.isEmpty {
+                    Text("Ausverkauft")
+                        .font(.caption)
+                        .foregroundColor(.pink)
+                        .padding(.leading)
+                }
             }
         }
     }
